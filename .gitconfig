@@ -1,0 +1,57 @@
+[include]
+  path = ~/.gitconfig.secrets
+  
+[user]
+	name = Tim Kelty
+	email = tim@pixelandtonic.com
+
+[core]
+	excludesfile = /Users/timkelty/.gitignore_global
+  	whitespace = space-before-tab, trailing-space
+  	quotepath = false
+
+[merge]
+    tool = vscode
+
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+
+[diff]
+    tool = vscode
+
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[tag]
+	sort = -version:refname
+
+[rebase]
+	autoStash = true
+
+[pull]
+	rebase = true
+
+[branch]
+	autosetupmerge = always
+
+[push]
+	default = current
+	followTags = true
+
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  sm = submodule
+  smu = submodule update --init
+
+[apply]
+  # Detect whitespace errors when applying a patch
+  whitespace = fix
+
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
