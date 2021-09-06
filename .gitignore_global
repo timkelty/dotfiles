@@ -46,3 +46,7 @@ node_modules
 *.secret
 *.secrets
 docker-compose.override.yml
+override.tf
+*_override.tf
+override.tf.json
+*_override.tf.json
