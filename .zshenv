@@ -29,4 +29,4 @@ export PATH="$PATH:node_modules/.bin:vendor/bin"
 # Serverless needs this to load from ~/.aws/config
 export AWS_SDK_LOAD_CONFIG=1
 
-source .zshenv.secrets
+source ".zshenv.secrets"
