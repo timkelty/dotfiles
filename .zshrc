@@ -256,3 +256,5 @@ function fs() {
 		du $arg .[^.]* ./*
 	fi
 }
+
+eval "$(starship init zsh)"

@@ -25,7 +25,8 @@ zmodule utility
 # zmodule git-info
 # A heavily reduced, ASCII-only version of the Spaceship and Starship prompts.
 # zmodule asciiship
-zmodule sindresorhus/pure --source async.zsh --source pure.zsh
+# zmodule sindresorhus/pure --source async.zsh --source pure.zsh
+# zmodule spaceship-prompt/spaceship-prompt --name spaceship
 
 # Additional completion definitions for Zsh.
 zmodule zsh-users/zsh-completions
