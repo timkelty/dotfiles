@@ -1,3 +1,7 @@
+#
+# User configuration sourced by interactive shells
+#
+
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
@@ -5,15 +9,6 @@ if type brew &>/dev/null; then
   autoload -Uz compinit
   compinit
 fi
-
-# Start configuration added by Zim install {{{
-#
-# User configuration sourced by interactive shells
-#
-
-# -----------------
-# Zsh configuration
-# -----------------
 
 #
 # History
@@ -134,7 +129,6 @@ bindkey '^P' history-substring-search-up
 bindkey '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
-# }}} End configuration added by Zim install
 
 # https://github.com/rupa/z/
 . /opt/homebrew/etc/profile.d/z.sh
@@ -186,6 +180,9 @@ alias awsp="source _awsp"
 
 alias tf="terraform"
 alias ghw="gh repo view --web"
+
+# https://awsu.me/
+alias awsume=". awsume"
 
 # With no arguments opens the current directory in `cmd`,
 # otherwise opens the given location

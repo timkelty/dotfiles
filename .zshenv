@@ -1,11 +1,9 @@
-# Start configuration added by Zim install {{{
 #
 # User configuration sourced by all invocations of the shell
 #
 
 # Define Zim location
 : ${ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim}
-# }}} End configuration added by Zim install
 
 export CODE_EDITOR="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
 export EDITOR="vim"
@@ -28,5 +26,8 @@ export PATH="$PATH:node_modules/.bin:vendor/bin"
 
 # Serverless needs this to load from ~/.aws/config
 export AWS_SDK_LOAD_CONFIG=1
+
+# Created by `pipx` on 2021-09-14 13:18:21
+export PATH="$PATH:/Users/timkelty/.local/bin"
 
 source "$HOME/.zshenv.secrets"
