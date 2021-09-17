@@ -1,0 +1,62 @@
+
+format = """
+$username\
+$hostname\
+$shlvl\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$memory_usage\
+$env_var\
+$custom\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$shell\
+$character"""
+
+right_format = """$aws"""
+
+[character]
+success_symbol = "[❯](5)"
+error_symbol = "[❯](red)"
+vicmd_symbol = "[❮](green)"
+
+[directory]
+truncation_length = 8
+truncation_symbol = "…/"
+truncate_to_repo = false
+style = "blue"
+
+[git_branch]
+format = "[$branch]($style)"
+style = "242"
+
+[git_status]
+format = "[[$conflicted$deleted$renamed$modified$untracked](218) $ahead_behind$stashed]($style)"
+style = "cyan"
+diverged = "*"
+untracked = "*"
+modified = "*"
+staged = "*"
+renamed = "*"
+deleted = "*"
+stashed = "≡"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "242"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
+
+[aws]
+format = '[($profile )(\($region\) )(\[$duration\])]($style)'
+style = "yellow"
