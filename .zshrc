@@ -255,3 +255,6 @@ function fs() {
 }
 
 eval "$(starship init zsh)"
+
+# FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
