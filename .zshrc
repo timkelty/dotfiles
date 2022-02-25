@@ -114,9 +114,6 @@ source ${ZIM_HOME}/init.zsh
 # Post-init module configuration
 # ------------------------------
 
-# https://github.com/rupa/z/
-. /opt/homebrew/etc/profile.d/z.sh
-
 # https://github.com/tj/git-extras
 source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
