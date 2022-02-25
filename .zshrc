@@ -118,7 +118,7 @@ source ${ZIM_HOME}/init.zsh
 source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
 # exa/ls
-alias ls="exa --header --group-directories-first -l"
+alias ls="exa --header --group-directories-first -al"
 alias lso="gstat -c '%A %a %U %G %n' *"
 
 # https://github.com/sharkdp/bat
