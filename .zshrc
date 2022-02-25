@@ -182,7 +182,7 @@ function e() {
 }
 
 function gg() {
-	_open gittower "$@"
+	_open fork "$@"
 }
 
 function phps() {
