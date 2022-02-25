@@ -30,4 +30,6 @@ export AWS_SDK_LOAD_CONFIG=1
 # Created by `pipx` on 2021-09-14 13:18:21
 export PATH="$PATH:/Users/timkelty/.local/bin"
 
+export NITRO_DEFAULT_TLD="test"
+
 source "$HOME/.zshenv.secrets"
