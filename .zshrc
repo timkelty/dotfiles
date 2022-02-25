@@ -237,3 +237,4 @@ function fs() {
 }
 
 eval "$(starship init zsh)"
+alias lzd='lazydocker'
