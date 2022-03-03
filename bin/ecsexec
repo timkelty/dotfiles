@@ -1,0 +1,42 @@
+#!/bin/zsh
+# make sure the AWS_PROFILE environment variable is set
+if [ -z "$AWS_PROFILE" ]; then
+  echo "[ERROR] AWS_PROFILE environment variable not set"
+  exit 1
+fi
+
+if [ -z "$AWS_REGION" ]; then
+  export AWS_REGION=us-west-2
+fi
+
+read "REGION?Which region [$AWS_REGION]? "
+REGION=${REGION:-$AWS_REGION}
+
+read "CONTAINER?Which container [web]? "
+CONTAINER=${CONTAINER:-web}
+
+aws --region $REGION ecs list-clusters | jq -r '.clusterArns' | jq 'to_entries'
+read "CLUSTER_IDX?Which cluster? [0] "
+CLUSTER_IDX=${CLUSTER_IDX:-0}
+CLUSTER=$(aws ecs list-clusters | jq -r ".clusterArns[$CLUSTER_IDX]")
+
+aws --region $REGION ecs list-services --cluster $CLUSTER | jq -r '.serviceArns' | jq 'to_entries'
+read "SERVICE_IDX?Which service? [0] "
+SERVICE_IDX=${SERVICE_IDX:-0}
+SERVICE=$(aws ecs list-services --cluster $CLUSTER | jq -r ".serviceArns[$SERVICE_IDX]")
+
+aws --region $REGION ecs list-tasks --cluster $CLUSTER --service-name $SERVICE | jq -r '.taskArns' | jq 'to_entries'
+read "TASK_IDX?Which task? [0]"
+TASK_IDX=${TASK_IDX:-0}
+TASK=$(aws ecs list-tasks --cluster $CLUSTER --service-name $SERVICE | jq -r ".taskArns[$TASK_IDX]")
+
+if [[ -z $TASK ]]; then
+  echo "\n[ERROR] No task found for $CLUSTER/$SERVICE in $REGION"
+  exit 1
+fi
+
+echo "\n[INFO] connecting to task $TASK in $SERVICE..."
+
+set -x
+
+aws ecs execute-command --cluster $CLUSTER --task $TASK --container $CONTAINER --command sh --interactive
