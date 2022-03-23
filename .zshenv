@@ -12,6 +12,9 @@ export GIT_EDITOR="vim +startinsert"
 # Tell nitro to use local images
 export NITRO_DEVELOPMENT=true
 
+# Add go bin
+export PATH="$PATH:$HOME/go/bin"
+
 # Add Composer
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
