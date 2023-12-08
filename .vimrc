@@ -28,3 +28,5 @@ filetype plugin indent on    " required
 
 colorscheme base16-tomorrow-night-eighties
 syntax enable
+
+set rtp+=/opt/homebrew/opt/fzf

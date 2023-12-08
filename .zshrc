@@ -1,3 +1,4 @@
+
 #
 # User configuration sourced by interactive shells
 #
@@ -5,10 +6,11 @@
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-
-  autoload -Uz compinit
-  compinit
 fi
+
+# -----------------
+# Zsh configuration
+# -----------------
 
 #
 # History
@@ -45,14 +47,6 @@ WORDCHARS=${WORDCHARS//[\/]}
 # --------------------
 
 #
-# completion
-#
-
-# Set a custom path for the completion dump file.
-# If none is provided, the default ${ZDOTDIR:-${HOME}}/.zcompdump is used.
-#zstyle ':zim:completion' dumpfile "${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
-
-#
 # git
 #
 
@@ -79,6 +73,10 @@ zstyle ':zim:input' double-dot-expand yes
 # zsh-autosuggestions
 #
 
+# Disable automatic widget re-binding on each precmd. This can be set when
+# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
 # Customize the style that the suggestions are shown with.
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
 #ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
@@ -96,26 +94,54 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
 
-# FZF
-# Before zim modules, so we can override ctrl-r
+# Source this before modules, since I like
+# history-search-multi-word's ⌘R better
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # ------------------
 # Initialize modules
 # ------------------
 
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+# Download zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  # Update static initialization script if it does not exist or it's outdated, before sourcing it
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
+# Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
 # ------------------------------
 # Post-init module configuration
 # ------------------------------
 
+zmodload -F zsh/terminfo +p:terminfo
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
+for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
+for key ('k') bindkey -M vicmd ${key} history-substring-search-up
+for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+unset key
+
+# https://github.com/nvm-sh/nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # https://github.com/tj/git-extras
 source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
+
+alias lzd='lazydocker'
+alias lg='lazygit'
 
 # exa/ls
 alias ls="exa --header --group-directories-first -al"
@@ -123,11 +149,6 @@ alias lso="gstat -c '%A %a %U %G %n' *"
 
 # https://github.com/sharkdp/bat
 alias cat="bat"
-
-# https://github.com/nvm-sh/nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias hosts="sudo $EDITOR /etc/hosts"
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
@@ -144,8 +165,6 @@ alias path='echo $PATH | tr -s ":" "\n"'
 # Docker
 alias docker-stop-all='docker stop $(docker ps -aq)'
 alias docker-remove-all='docker-stop-all && docker rm $(docker ps -aq)'
-alias docker-remove-hashed-images="docker rmi $(docker images | egrep '{{ item }}-[[:digit:]]{14}' | tail -n +4 | awk '{ print $3 }')"
-alias docker-remove-hashed-volumes="docker volume rm $(docker volume ls | egrep '[[:alnum:]]{64}')"
 alias dps="docker ps -a --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}'"
 
 # Docker Compose
@@ -157,14 +176,8 @@ alias dcu='dc up -d'
 alias dcd='dc down'
 alias dcl='dc logs -f'
 
-# https://github.com/johnnyopao/awsp
-alias awsp="source _awsp"
-
 alias tf="terraform"
 alias ghw="gh repo view --web"
-
-# https://awsu.me/
-alias awsume=". awsume"
 
 # With no arguments opens the current directory in `cmd`,
 # otherwise opens the given location
@@ -214,14 +227,6 @@ listening() {
     fi
 }
 
-# https://fetzi.dev/add-composer-link-command/
-composer-link() {
-  repositoryName=${3:-local}
-
-  composer config repositories.$repositoryName '{"type": "path", "url": "'$1'", "options": {"symlink": true}}' --file composer.json
-  composer require $2 @dev
-}
-
 # Determine size of a file or total size of a directory
 function fs() {
 	if du -b /dev/null >/dev/null 2>&1; then
@@ -235,6 +240,3 @@ function fs() {
 		du $arg .[^.]* ./*
 	fi
 }
-
-eval "$(starship init zsh)"
-alias lzd='lazydocker'

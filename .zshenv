@@ -1,16 +1,8 @@
-#
-# User configuration sourced by all invocations of the shell
-#
-
-# Define Zim location
-: ${ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim}
+source "$HOME/.zshenv.secrets"
 
 export CODE_EDITOR="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
 export EDITOR="vim"
 export GIT_EDITOR="vim +startinsert"
-
-# Tell nitro to use local images
-export NITRO_DEVELOPMENT=true
 
 # Add go bin
 export PATH="$PATH:$HOME/go/bin"
@@ -33,6 +25,8 @@ export AWS_SDK_LOAD_CONFIG=1
 # Created by `pipx` on 2021-09-14 13:18:21
 export PATH="$PATH:/Users/timkelty/.local/bin"
 
-export NITRO_DEFAULT_TLD="test"
+export DEV_EMAIL=tim@craftcms.com
+export DEV_USERNAME=admin
+export DEV_PASSWORD=password
 
-source "$HOME/.zshenv.secrets"
+alias assume="source assume"
