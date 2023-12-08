@@ -4,6 +4,8 @@ export CODE_EDITOR="/Applications/Visual Studio Code.app/Contents/Resources/app/
 export EDITOR="vim"
 export GIT_EDITOR="vim +startinsert"
 
+export FZF_DEFAULT_COMMAND="fd . $HOME"
+
 # Add go bin
 export PATH="$PATH:$HOME/go/bin"
 
