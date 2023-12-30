@@ -4,17 +4,19 @@
 #
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 # https://github.com/nvm-sh/nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # -----------------
 # Zsh configuration
 # -----------------
+
+
 
 #
 # History
@@ -98,9 +100,8 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
 
-# Source this before modules, since I like
-# history-search-multi-word's ⌘R better
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+typeset -gaU chpwd_functions
+chpwd_functions+=fre_chpwd
 
 # ------------------
 # Initialize modules
@@ -177,6 +178,54 @@ alias dcl='dc logs -f'
 
 alias tf="terraform"
 alias ghw="gh repo view --web"
+alias ddd="ddev describe"
+
+f() {
+	FD_PATH=${1:-.}
+
+	local file
+	file=$(
+		fd . $FD_PATH | fzf \
+		--header 'CTRL-T: All / CTRL-D: Directories / CTRL-F: Files' \
+		--bind 'ctrl-t:change-prompt(All> )+reload(fd . ${FD_PATH})' \
+		--bind 'ctrl-d:change-prompt(Directories> )+reload(fd -t d . $FD_PATH)' \
+		--bind 'ctrl-f:change-prompt(Files> )+reload(fd -t f . $FD_PATH)' \
+		--bind 'alt-enter:execute-silent(echo {} | tr -d "\n" | pbcopy)+abort'
+	)
+
+  if [[ -n $file ]]
+  then
+     if [[ -d $file ]]
+     then
+        cd -- $file
+     else
+        cd -- ${file:h}
+     fi
+  fi
+}
+
+z() {
+	local file
+	file=$(
+		command cat <(fre --sorted) <(fd -t d --max-depth 1 . ~/Dev) <(fd -t d --max-depth 1 . ~) | fzf \
+		--no-sort \
+		--bind 'alt-enter:execute-silent(echo {} | tr -d "\n" | pbcopy)+abort'
+	)
+
+  if [[ -n $file ]]
+  then
+     cd -- $file
+  fi
+}
+
+# https://github.com/camdencheek/fre
+fre_purge() {
+	fre --sorted | while read dir ; do if [ ! -d "$dir" ] ; then fre --delete "$dir";  fi ; done
+}
+
+fre_chpwd() {
+  fre --add "$(pwd)"
+}
 
 # With no arguments opens the current directory in `cmd`,
 # otherwise opens the given location

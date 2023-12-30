@@ -28,11 +28,11 @@ zmodule zsh-users/zsh-completions --fpath src
 zmodule completion
 
 zmodule joke/zim-starship
-zmodule zdharma-continuum/history-search-multi-word
 zmodule exa
 zmodule archive
-zmodule magic-enter
-zmodule skywind3000/z.lua --cmd 'eval "$(lua {}/z.lua --init zsh enhanced)"'
+
+# Currently uzing fre+fzf instead of this
+# zmodule skywind3000/z.lua --cmd 'eval "$(lua {}/z.lua --init zsh enhanced)"'
 
 #
 # Modules that must be initialized last
