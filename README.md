@@ -25,5 +25,6 @@ git clone --no-checkout git@github.com:timkelty/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 git config --local status.showUntrackedFiles no
 git config --local core.work-tree ../..
-git checkout
+git restore --staged ..
+ln -s $HOME/dotfiles/.git $HOME/.git
 ```
