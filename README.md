@@ -22,7 +22,8 @@
 
 ```
 git clone --no-checkout git@github.com:timkelty/dotfiles.git ~/dotfiles
-git config --local status.showUntrackedFiles node
-git config --local work-tree ../..
+cd ~/dotfiles
+git config --local status.showUntrackedFiles no
+git config --local core.work-tree ../..
 git checkout
 ```
