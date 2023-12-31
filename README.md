@@ -21,10 +21,11 @@
 - phpstorm
 
 ```
-git clone --no-checkout git@github.com:timkelty/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-git config --local status.showUntrackedFiles no
-git config --local core.work-tree ../..
+git clone --bare git@github.com:timkelty/dotfiles.git
+cd ~/dotfiles.git
+git config status.showUntrackedFiles no
+git config core.bare false
+git config core.worktree $HOME
 git restore --staged ..
-ln -s $HOME/dotfiles/.git $HOME/.git
+ln -s $PWD $HOME/.git
 ```

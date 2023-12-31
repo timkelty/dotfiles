@@ -35,7 +35,6 @@ zmodule archive
 zmodule skywind3000/z.lua --cmd 'eval "$(lua {}/z.lua --init zsh enhanced)"'
 
 # https://github.com/Aloxaf/fzf-tab
-# TODO: get ls colors working
 zmodule Aloxaf/fzf-tab
 
 #
