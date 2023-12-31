@@ -19,3 +19,10 @@
 - alfred
 - vscode
 - phpstorm
+
+```
+git clone --no-checkout git@github.com:timkelty/dotfiles.git ~/dotfiles
+git config --local status.showUntrackedFiles node
+git config --local work-tree ../..
+git checkout
+```
