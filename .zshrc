@@ -1,4 +1,3 @@
-
 #
 # User configuration sourced by interactive shells
 #
@@ -15,8 +14,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # -----------------
 # Zsh configuration
 # -----------------
-
-
 
 #
 # History
@@ -40,6 +37,18 @@ bindkey -e
 
 # Remove path separator from WORDCHARS.
 WORDCHARS=${WORDCHARS//[\/]}
+
+# https://github.com/Aloxaf/fzf-tab?
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}z
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
 
 # -----------------
 # Zim configuration
@@ -180,6 +189,7 @@ alias tf="terraform"
 alias ghw="gh repo view --web"
 alias ddd="ddev describe"
 
+# TODO: prob dont need this with fzf-tab and cd <tab>…
 f() {
 	FD_PATH=${1:-.}
 
@@ -201,20 +211,6 @@ f() {
      else
         cd -- ${file:h}
      fi
-  fi
-}
-
-z() {
-	local file
-	file=$(
-		command cat <(fre --sorted) <(fd -t d --max-depth 1 . ~/Dev) <(fd -t d --max-depth 1 . ~) | fzf \
-		--no-sort \
-		--bind 'alt-enter:execute-silent(echo {} | tr -d "\n" | pbcopy)+abort'
-	)
-
-  if [[ -n $file ]]
-  then
-     cd -- $file
   fi
 }
 

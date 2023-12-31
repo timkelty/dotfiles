@@ -1,9 +1,9 @@
-[include]
-  path = ~/.gitconfig.secrets
-
 [user]
 	name = Tim Kelty
-	email = tim@pixelandtonic.com
+	email = tim@craftcms.com
+
+[include]
+  path = ~/.gitconfig.secrets
 
 [core]
 	excludesfile = /Users/timkelty/.gitignore_global
@@ -53,3 +53,21 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+
+[commit]
+	gpgsign = true
+	template = /Users/timkelty/.stCommitMsg
+[gpg]
+	program = /usr/local/MacGPG2/bin/gpg2
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+	trustExitCode = true
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[mergetool]
+	prompt = false
+[init]
+	defaultBranch = main

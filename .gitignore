@@ -1,2 +1,7 @@
 *.secret
 *.secrets
+
+# Ignores for fd/fzf
+Library/Caches/*
+Library/Containers/*
+Library/Logs/*
