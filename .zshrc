@@ -1,6 +1,15 @@
-#
-# User configuration sourced by interactive shells
-#
+# https://www.zerotohero.dev/zshell-startup-files/
+# - .zshenv
+# - .zprofile (if login shell)
+# - .zshrc (if interactive)
+# - .zlogin (if login shell)
+# - .zlogout (when a login shell exits)
+
+# Set editor default keymap to emacs (`-e`) or vi (`-v`)
+bindkey -e
+
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
@@ -9,278 +18,240 @@ FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
+# https://github.com/junegunn/fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# -----------------
-# Zsh configuration
-# -----------------
+# Starship prompt
+# https://starship.rs/
+# eval "$(starship init zsh)"
 
-#
-# History
-#
+# https://github.com/zsh-users/antigen
+source /opt/homebrew/share/antigen/antigen.zsh
+antigen init .antigenrc
 
-# Remove older command from the history if a duplicate is to be added.
-setopt HIST_IGNORE_ALL_DUPS
+# zsh-history-substring-search configuration
+bindkey '^[[A' history-substring-search-up # or '\eOA'
+bindkey '^[[B' history-substring-search-down # or '\eOB'
 
-#
-# Input/output
-#
+# function _z() { _zlua "$@"; }
 
-# Set editor default keymap to emacs (`-e`) or vi (`-v`)
-bindkey -e
 
-# Prompt for spelling correction of commands.
-#setopt CORRECT
+# #
+# # User configuration sourced by interactive shells
+# #
 
-# Customize spelling correction prompt.
-#SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 
-# Remove path separator from WORDCHARS.
-WORDCHARS=${WORDCHARS//[\/]}
 
-# https://github.com/Aloxaf/fzf-tab?
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
-# switch group using `,` and `.`
-zstyle ':fzf-tab:*' switch-group ',' '.'
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# -----------------
-# Zim configuration
-# -----------------
+# # -----------------
+# # Zsh configuration
+# # -----------------
 
-# Use degit instead of git as the default tool to install and update modules.
-#zstyle ':zim:zmodule' use 'degit'
+# #
+# # History
+# #
 
-# --------------------
-# Module configuration
-# --------------------
+# # Remove older command from the history if a duplicate is to be added.
+# setopt HIST_IGNORE_ALL_DUPS
 
-#
-# git
-#
+# #
+# # Input/output
+# #
 
-# Set a custom prefix for the generated aliases. The default prefix is 'G'.
-#zstyle ':zim:git' aliases-prefix 'g'
+# # Set editor default keymap to emacs (`-e`) or vi (`-v`)
+# bindkey -e
 
-#
-# input
-#
+# # Prompt for spelling correction of commands.
+# #setopt CORRECT
 
-# Append `../` to your input for each `.` you type after an initial `..`
-zstyle ':zim:input' double-dot-expand yes
+# # Customize spelling correction prompt.
+# #SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 
-#
-# termtitle
-#
+# # Remove path separator from WORDCHARS.
+# WORDCHARS=${WORDCHARS//[\/]}
 
-# Set a custom terminal title format using prompt expansion escape sequences.
-# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
-# If none is provided, the default '%n@%m: %~' is used.
-#zstyle ':zim:termtitle' format '%1~'
+# # https://github.com/Aloxaf/fzf-tab?
+# # disable sort when completing `git checkout`
+# zstyle ':completion:*:git-checkout:*' sort false
+# # set descriptions format to enable group support
+# zstyle ':completion:*:descriptions' format '[%d]'
+# # set list-colors to enable filename colorizing
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# # preview directory's content with exa when completing cd
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# # switch group using `,` and `.`
+# zstyle ':fzf-tab:*' switch-group ',' '.'
 
-#
-# zsh-autosuggestions
-#
+# # -----------------
+# # Zim configuration
+# # -----------------
 
-# Disable automatic widget re-binding on each precmd. This can be set when
-# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+# # Use degit instead of git as the default tool to install and update modules.
+# #zstyle ':zim:zmodule' use 'degit'
 
-# Customize the style that the suggestions are shown with.
-# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+# # --------------------
+# # Module configuration
+# # --------------------
 
-#
-# zsh-syntax-highlighting
-#
+# #
+# # git
+# #
 
-# Set what highlighters will be used.
-# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+# # Set a custom prefix for the generated aliases. The default prefix is 'G'.
+# #zstyle ':zim:git' aliases-prefix 'g'
 
-# Customize the main highlighter styles.
-# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
+# #
+# # input
+# #
 
-typeset -gaU chpwd_functions
-chpwd_functions+=fre_chpwd
+# # Append `../` to your input for each `.` you type after an initial `..`
+# zstyle ':zim:input' double-dot-expand yes
 
-# ------------------
-# Initialize modules
-# ------------------
+# #
+# # termtitle
+# #
 
-ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
-# Download zimfw plugin manager if missing.
-if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
-  if (( ${+commands[curl]} )); then
-    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
-        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-  else
-    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
-        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-  fi
-fi
-# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
-if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  source ${ZIM_HOME}/zimfw.zsh init -q
-fi
-# Initialize modules.
-source ${ZIM_HOME}/init.zsh
+# # Set a custom terminal title format using prompt expansion escape sequences.
+# # See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
+# # If none is provided, the default '%n@%m: %~' is used.
+# #zstyle ':zim:termtitle' format '%1~'
 
-# ------------------------------
-# Post-init module configuration
-# ------------------------------
+# #
+# # zsh-autosuggestions
+# #
 
-zmodload -F zsh/terminfo +p:terminfo
-# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
-for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
-for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
-for key ('k') bindkey -M vicmd ${key} history-substring-search-up
-for key ('j') bindkey -M vicmd ${key} history-substring-search-down
-unset key
+# # Disable automatic widget re-binding on each precmd. This can be set when
+# # zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+# ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-# https://github.com/tj/git-extras
-source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
+# # Customize the style that the suggestions are shown with.
+# # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
+# #ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
-alias lzd='lazydocker'
-alias lg='lazygit'
+# #
+# # zsh-syntax-highlighting
+# #
 
-# exa/ls
-alias ls="exa --header --group-directories-first -al"
-alias lso="gstat -c '%A %a %U %G %n' *"
+# # Set what highlighters will be used.
+# # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+# ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-# https://github.com/sharkdp/bat
-alias cat="bat"
+# # Customize the main highlighter styles.
+# # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
+# typeset -A ZSH_HIGHLIGHT_STYLES
+# ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
 
-alias hosts="sudo $EDITOR /etc/hosts"
-alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
-alias dnsflush="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
+# typeset -gaU chpwd_functions
+# chpwd_functions+=fre_chpwd
 
-# git
-alias gitc="vim .git/config"
-alias giti="vim .gitignore"
-alias gitm="vim .gitmodules"
+# # ------------------
+# # Initialize modules
+# # ------------------
 
-# Pretty print the path
-alias path='echo $PATH | tr -s ":" "\n"'
+# ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+# # Download zimfw plugin manager if missing.
+# if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+#   if (( ${+commands[curl]} )); then
+#     curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+#         https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+#   else
+#     mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+#         https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+#   fi
+# fi
+# # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+# if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+#   source ${ZIM_HOME}/zimfw.zsh init -q
+# fi
+# # Initialize modules.
+# source ${ZIM_HOME}/init.zsh
 
-# Docker
-alias docker-stop-all='docker stop $(docker ps -aq)'
-alias docker-remove-all='docker-stop-all && docker rm $(docker ps -aq)'
-alias dps="docker ps -a --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}'"
+# # ------------------------------
+# # Post-init module configuration
+# # ------------------------------
 
-# Docker Compose
-alias dc='docker compose'
-alias dcb='dc build'
-alias dce='dc exec'
-alias dcps="dc ps"
-alias dcu='dc up -d'
-alias dcd='dc down'
-alias dcl='dc logs -f'
+# zmodload -F zsh/terminfo +p:terminfo
+# # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+# for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
+# for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
+# for key ('k') bindkey -M vicmd ${key} history-substring-search-up
+# for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+# unset key
 
-alias tf="terraform"
-alias ghw="gh repo view --web"
-alias ddd="ddev describe"
+# # https://github.com/tj/git-extras
+# source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
-# TODO: prob dont need this with fzf-tab and cd <tab>…
-f() {
-	FD_PATH=${1:-.}
+# alias lzd='lazydocker'
+# alias lg='lazygit'
 
-	local file
-	file=$(
-		fd . $FD_PATH | fzf \
-		--header 'CTRL-T: All / CTRL-D: Directories / CTRL-F: Files' \
-		--bind 'ctrl-t:change-prompt(All> )+reload(fd . ${FD_PATH})' \
-		--bind 'ctrl-d:change-prompt(Directories> )+reload(fd -t d . $FD_PATH)' \
-		--bind 'ctrl-f:change-prompt(Files> )+reload(fd -t f . $FD_PATH)' \
-		--bind 'alt-enter:execute-silent(echo {} | tr -d "\n" | pbcopy)+abort'
-	)
+# # exa/ls
+# alias ls="exa --header --group-directories-first -al"
+# alias lso="gstat -c '%A %a %U %G %n' *"
 
-  if [[ -n $file ]]
-  then
-     if [[ -d $file ]]
-     then
-        cd -- $file
-     else
-        cd -- ${file:h}
-     fi
-  fi
-}
+# # https://github.com/sharkdp/bat
+# alias cat="bat"
 
-# https://github.com/camdencheek/fre
-fre_purge() {
-	fre --sorted | while read dir ; do if [ ! -d "$dir" ] ; then fre --delete "$dir";  fi ; done
-}
+# alias hosts="sudo $EDITOR /etc/hosts"
+# alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
+# alias dnsflush="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
 
-fre_chpwd() {
-  fre --add "$(pwd)"
-}
+# # git
+# alias gitc="vim .git/config"
+# alias giti="vim .gitignore"
+# alias gitm="vim .gitmodules"
 
-# With no arguments opens the current directory in `cmd`,
-# otherwise opens the given location
-function _open() {
-	local cmd="$1"
-	if [ $# -eq 1 ]; then
-		$cmd .
-	else
-		$cmd "${@:2}"
-	fi
-}
+# # Pretty print the path
+# alias path='echo $PATH | tr -s ":" "\n"'
 
-function e() {
-	_open $CODE_EDITOR "$@"
-}
+# # Docker
+# alias docker-stop-all='docker stop $(docker ps -aq)'
+# alias docker-remove-all='docker-stop-all && docker rm $(docker ps -aq)'
+# alias dps="docker ps -a --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}'"
 
-function gg() {
-	_open fork "$@"
-}
+# # Docker Compose
+# alias dc='docker compose'
+# alias dcb='dc build'
+# alias dce='dc exec'
+# alias dcps="dc ps"
+# alias dcu='dc up -d'
+# alias dcd='dc down'
+# alias dcl='dc logs -f'
 
-function phps() {
-	_open phpstorm "$@"
-}
+# alias tf="terraform"
+# alias ghw="gh repo view --web"
+# alias ddd="ddev describe"
 
-function o() {
-	_open open "$@"
-}
+# # TODO: prob dont need this with fzf-tab and cd <tab>…
+# f() {
+# 	FD_PATH=${1:-.}
 
-# Remove current directory
-function rm.() {
-	local TMP=$(pwd -P)
-	echo "\nDelete \"$TMP\"? [y/N]"
-	read CONFIRM
+# 	local file
+# 	file=$(
+# 		fd . $FD_PATH | fzf \
+# 		--header 'CTRL-T: All / CTRL-D: Directories / CTRL-F: Files' \
+# 		--bind 'ctrl-t:change-prompt(All> )+reload(fd . ${FD_PATH})' \
+# 		--bind 'ctrl-d:change-prompt(Directories> )+reload(fd -t d . $FD_PATH)' \
+# 		--bind 'ctrl-f:change-prompt(Files> )+reload(fd -t f . $FD_PATH)' \
+# 		--bind 'alt-enter:execute-silent(echo {} | tr -d "\n" | pbcopy)+abort'
+# 	)
 
-	if [ "$CONFIRM" = "y" ]; then
-		cd "$(dirname $TMP)" && rm -rf "./$(basename $TMP)"
-	fi
-}
+#   if [[ -n $file ]]
+#   then
+#      if [[ -d $file ]]
+#      then
+#         cd -- $file
+#      else
+#         cd -- ${file:h}
+#      fi
+#   fi
+# }
 
-function listening() {
-    if [ $# -eq 0 ]; then
-        sudo lsof -iTCP -sTCP:LISTEN -n -P
-    elif [ $# -eq 1 ]; then
-        sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
-    else
-        echo "Usage: listening [pattern]"
-    fi
-}
+# # https://github.com/camdencheek/fre
+# fre_purge() {
+# 	fre --sorted | while read dir ; do if [ ! -d "$dir" ] ; then fre --delete "$dir";  fi ; done
+# }
 
-# Determine size of a file or total size of a directory
-function fs() {
-	if du -b /dev/null >/dev/null 2>&1; then
-		local arg=-sbh
-	else
-		local arg=-sh
-	fi
-	if [[ -n "$@" ]]; then
-		du $arg -- "$@"
-	else
-		du $arg .[^.]* ./*
-	fi
-}
+# fre_chpwd() {
+#   fre --add "$(pwd)"
+# }
