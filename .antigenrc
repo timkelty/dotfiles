@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+# Additional completion definitions
+antigen bundle zsh-users/zsh-completions
+
+# Fish-like syntax highlighting
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Fish-like history search (up arrow) for Zsh.
+antigen bundle zsh-users/zsh-history-substring-search
+
+# Fish-like auto suggestions
+antigen bundle zsh-users/zsh-autosuggestions
+
+# https://github.com/skywind3000/z.lua
+antigen bundle skywind3000/z.lua
+
+antigen apply
