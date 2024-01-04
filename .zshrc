@@ -23,7 +23,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 # Starship prompt
 # https://starship.rs/
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"
 
 # https://github.com/zsh-users/antigen
 source /opt/homebrew/share/antigen/antigen.zsh
