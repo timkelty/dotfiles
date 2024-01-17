@@ -37,8 +37,8 @@ export DEV_USERNAME=admin
 export DEV_PASSWORD=password
 
 export FD_DEFAULT_OPTS="--unrestricted"
-export EXA_DEFAULT_OPTS="--header --group-directories-first -al --icons --color=always --octal-permissions"
-export EXA_FZF_PREVIEW_OPTS="--header --group-directories-first --icons --color=always -1"
+export EXA_DEFAULT_OPTS="--header --group-directories-first --icons --color=always --octal-permissions"
+export EXA_FZF_PREVIEW_OPTS="$EXA_FZF_PREVIEW_OPTS -1"
 export FZF_FD_DEFAULT_COMMAND='command cat <(fd . . $FD_DEFAULT_OPTS) <(fd . ~ $FD_DEFAULT_OPTS)'
 export FZF_FD_FILES_COMMAND='command cat <(fd -t f . . $FD_DEFAULT_OPTS) <(fd -t f . ~ $FD_DEFAULT_OPTS)'
 export FZF_FD_DIRS_COMMAND='command cat <(fd -t d . . $FD_DEFAULT_OPTS) <(fd -t d . ~ $FD_DEFAULT_OPTS)'
@@ -54,6 +54,10 @@ export FZF_CTRL_T_OPTS="--prompt 'All> '
 export FZF_ALT_C_COMMAND="command cat <(fre --sorted) <(fd -t d . ~ $FD_DEFAULT_OPTS --max-depth=1) <(fd -t d . ~ $FD_DEFAULT_OPTS --max-depth=1)"
 export FZF_ALT_C_OPTS="--tiebreak=index
 --preview 'echo $EXA_FZF_PREVIEW_OPTS | xargs exa {}'"
+
+export MAGIC_ENTER_OTHER_COMMAND="ls ."
+export MAGIC_ENTER_GIT_COMMAND="$MAGIC_ENTER_OTHER_COMMAND ; git status -u ."
+
 
 # Added by Granted https://www.granted.dev/
 alias assume="source assume"

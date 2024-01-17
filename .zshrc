@@ -155,6 +155,9 @@ for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 
+#⌃-z to jump
+bindkey -M emacs '\Cz' fzf-cd-widget
+
 # https://github.com/tj/git-extras
 source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
@@ -163,6 +166,7 @@ alias lg='lazygit'
 
 # exa/ls
 alias ls="exa $EXA_DEFAULT_OPTS"
+alias ll="exa $EXA_DEFAULT_OPTS -al"
 
 # https://github.com/sharkdp/bat
 alias cat="bat"
