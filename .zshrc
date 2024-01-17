@@ -46,9 +46,18 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'echo $EXA_FZF_PREVIEW_OPTS | xargs exa $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
+# because of fzf border
+zstyle ':fzf-tab:*' fzf-pad 4
+
+zstyle ':fzf-tab:complete:exa:*' fzf-preview '[ -d $realpath ] && echo $EXA_FZF_PREVIEW_OPTS | xargs exa $realpath || bat $realpath'
+zstyle ':fzf-tab:complete:bat:*' fzf-preview '[ -f $realpath ] && bat $realpath'
+
+# fzf-preview 'exa -1 --color=always $realpath'
+# use input as query string when completing zlua
+# zstyle ':fzf-tab:complete:_zlua:*' query-string input
 
 # -----------------
 # Zim configuration
@@ -153,8 +162,7 @@ alias lzd='lazydocker'
 alias lg='lazygit'
 
 # exa/ls
-alias ls="exa --header --group-directories-first -al"
-alias lso="gstat -c '%A %a %U %G %n' *"
+alias ls="exa $EXA_DEFAULT_OPTS"
 
 # https://github.com/sharkdp/bat
 alias cat="bat"
@@ -188,31 +196,6 @@ alias dcl='dc logs -f'
 alias tf="terraform"
 alias ghw="gh repo view --web"
 alias ddd="ddev describe"
-
-# TODO: prob dont need this with fzf-tab and cd <tab>…
-f() {
-	FD_PATH=${1:-.}
-
-	local file
-	file=$(
-		fd . $FD_PATH | fzf \
-		--header 'CTRL-T: All / CTRL-D: Directories / CTRL-F: Files' \
-		--bind 'ctrl-t:change-prompt(All> )+reload(fd . ${FD_PATH})' \
-		--bind 'ctrl-d:change-prompt(Directories> )+reload(fd -t d . $FD_PATH)' \
-		--bind 'ctrl-f:change-prompt(Files> )+reload(fd -t f . $FD_PATH)' \
-		--bind 'alt-enter:execute-silent(echo {} | tr -d "\n" | pbcopy)+abort'
-	)
-
-  if [[ -n $file ]]
-  then
-     if [[ -d $file ]]
-     then
-        cd -- $file
-     else
-        cd -- ${file:h}
-     fi
-  fi
-}
 
 # https://github.com/camdencheek/fre
 fre_purge() {

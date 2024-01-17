@@ -1,5 +1,7 @@
 {
-  "git.untrackedChanges": "separate",
+  "git.untrackedChanges": "hidden",
   "git.ignoreLimitWarning": true,
-  "search.followSymlinks": false
+  "search.followSymlinks": false,
+  "explorer.excludeGitIgnore": true,
+  "search.useIgnoreFiles": true
 }

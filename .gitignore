@@ -1,7 +1,9 @@
-*.secret
-*.secrets
-
-# Ignores for fd/fzf
-Library/Caches/*
-Library/Containers/*
-Library/Logs/*
+*
+!.zshrc
+!.zshenv
+!.gitignore
+!.ignore
+!.gitconfig
+!.zimrc
+!.fzf.zsh
+!.vscode/settings.json

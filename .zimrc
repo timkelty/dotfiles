@@ -8,9 +8,6 @@
 # Sets sane Zsh built-in environment options.
 zmodule environment
 
-# Provides handy git aliases and functions.
-zmodule git
-
 # Applies correct bindkeys for input events.
 zmodule input
 
@@ -31,11 +28,15 @@ zmodule joke/zim-starship
 zmodule exa
 zmodule archive
 
-# Currently uzing fre+fzf instead of this
-zmodule skywind3000/z.lua --cmd 'eval "$(lua {}/z.lua --init zsh enhanced)"'
+# zmodule zdharma-continuum/fast-syntax-highlighting
 
-# https://github.com/Aloxaf/fzf-tab
-zmodule Aloxaf/fzf-tab
+# Currently uzing fre+fzf instead of this
+# zmodule skywind3000/z.lua --cmd 'eval "$(lua {}/z.lua --init zsh enhanced)"'
+
+# Like this better than fzf's search
+zmodule zdharma-continuum/history-search-multi-word
+
+zmodule ohmyzsh/ohmyzsh --root plugins/magic-enter
 
 #
 # Modules that must be initialized last
@@ -51,3 +52,6 @@ zmodule zsh-users/zsh-history-substring-search
 
 # Fish-like autosuggestions for Zsh.
 zmodule zsh-users/zsh-autosuggestions
+
+# https://github.com/Aloxaf/fzf-tab
+zmodule Aloxaf/fzf-tab
