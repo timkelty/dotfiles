@@ -161,12 +161,13 @@ bindkey -M emacs '\Cj' fzf-cd-widget
 # https://github.com/tj/git-extras
 source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
+alias fd="fd ${FD_DEFAULT_OPTS}"
 alias lzd='lazydocker'
 alias lg='lazygit'
 
 # exa/ls
-alias ls="exa $EXA_DEFAULT_OPTS"
-alias ll="exa $EXA_DEFAULT_OPTS -al"
+alias ls="exa ${EXA_DEFAULT_OPTS}"
+alias ll="exa ${EXA_DEFAULT_OPTS} -al"
 
 # https://github.com/sharkdp/bat
 alias cat="bat"

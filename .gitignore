@@ -3,6 +3,7 @@
 !.zshenv
 !.gitignore
 !.ignore
+!.fdignore
 !.gitconfig
 !.zimrc
 !.fzf.zsh
