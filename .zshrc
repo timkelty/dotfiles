@@ -155,8 +155,8 @@ for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 
-#⌃-z to jump
-bindkey -M emacs '\Cz' fzf-cd-widget
+#⌃j to jump
+bindkey -M emacs '\Cj' fzf-cd-widget
 
 # https://github.com/tj/git-extras
 source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
