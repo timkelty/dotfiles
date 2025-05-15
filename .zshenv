@@ -7,8 +7,7 @@
 
 source "$HOME/.zshenv.secrets"
 
-export CODE_EDITOR="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
-export EDITOR="vim"
+export EDITOR="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
 export GIT_EDITOR="vim +startinsert"
 
 # Add go bin

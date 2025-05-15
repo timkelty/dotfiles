@@ -164,6 +164,20 @@ source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
 alias fd="fd ${FD_DEFAULT_OPTS}"
 alias lzd='lazydocker'
 alias lg='lazygit'
+alias dot='$EDITOR \
+~/ \
+~/.zshrc \
+~/.zshenv \
+~/.zshenv.secrets \
+~/.zprofile \
+~/.zimrc \
+~/.gitignore_global \
+~/.gitconfig'
+
+# TODO: auto-search fzf for anything in ~ first?
+alias desk='cd ~/Desktop'
+alias dl='cd ~/Downloads'
+alias dev='cd ~/Dev'
 
 # exa/eza/ls
 alias ls="eza --group-directories-first"
@@ -177,9 +191,9 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 alias dnsflush="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
 
 # git
-alias gitc="vim .git/config"
-alias giti="vim .gitignore"
-alias gitm="vim .gitmodules"
+alias gitc="$EDITOR .git/config"
+alias giti="$EDITOR .gitignore"
+alias gitm="$EDITOR .gitmodules"
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
@@ -226,7 +240,7 @@ function _open() {
 }
 
 function e() {
-	_open $CODE_EDITOR "$@"
+	_open $EDITOR "$@"
 }
 
 function gg() {
