@@ -1,5 +1,10 @@
+add_newline = true
+
+# git stuff times out sometimes without this
+command_timeout = 1000
 
 format = """
+$line_break\
 $username\
 $hostname\
 $shlvl\
@@ -11,7 +16,6 @@ $git_metrics\
 $git_status\
 $memory_usage\
 $env_var\
-$custom\
 $cmd_duration\
 $line_break\
 $jobs\
@@ -21,7 +25,8 @@ $status\
 $shell\
 $character"""
 
-right_format = """$aws"""
+right_format = """
+$aws"""
 
 [character]
 success_symbol = "[❯](purple)"
@@ -35,8 +40,9 @@ truncate_to_repo = false
 style = "blue"
 
 [git_branch]
-format = "[$branch]($style)"
-style = " "
+format = "[$remote_name/$branch]($style) "
+style = "bright-black"
+always_show_remote = true
 
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
@@ -50,8 +56,16 @@ deleted = "​"
 stashed = "≡"
 
 [git_state]
-format = '\([$state( $progress_current/$progress_total)]($style)\) '
+format = '\([$state( $progress_current/$progress_total)]($style)\)'
 style = "bright-black"
+
+[git_commit]
+tag_disabled = false
+only_detached = false
+format = '[\($hash$tag\)]($style)'
+tag_symbol = ", tag: "
+style = "bright-black"
+
 
 [cmd_duration]
 format = "[$duration]($style) "
@@ -60,3 +74,9 @@ style = "yellow"
 [aws]
 format = '[($profile )(\($region\) )(\[$duration\])]($style)'
 style = "yellow"
+
+[custom.git_remote]
+description = "Display git remote URL"
+command = "git ls-remote --get-url"
+when = "git rev-parse --is-inside-work-tree"
+style = "bright-black"

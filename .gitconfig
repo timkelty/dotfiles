@@ -71,3 +71,5 @@
 	prompt = false
 [init]
 	defaultBranch = main
+[remote "origin"]
+	tagopt = --tags

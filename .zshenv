@@ -51,10 +51,14 @@ export FZF_CTRL_T_OPTS="--prompt 'All> '
 --bind 'ctrl-f:change-prompt(Files> )+reload($FZF_FD_FILES_COMMAND)'
 --bind 'alt-enter:execute-silent(echo {} | tr -d \"\n\" | pbcopy)+abort'
 --preview '[ -d {} ] && exa ${EXA_FZF_PREVIEW_OPTS} {} || bat {}'"
-export FZF_ALT_C_COMMAND="command cat <(fre --sorted) <(fd -t d . ~ $FD_DEFAULT_OPTS --max-depth=1) <(fd -t d . ~ $FD_DEFAULT_OPTS --max-depth=1)"
+export FZF_ALT_C_COMMAND="command cat <(fre --sorted) <(fd -t d . ~/Dev $FD_DEFAULT_OPTS --max-depth=1) <(fd -t d . ~ $FD_DEFAULT_OPTS --max-depth=1)"
 export FZF_ALT_C_OPTS="--tiebreak=index"
-export MAGIC_ENTER_OTHER_COMMAND="ls -1 ."
-export MAGIC_ENTER_GIT_COMMAND="$MAGIC_ENTER_OTHER_COMMAND ; git status -u ."
+export MAGIC_ENTER_GIT_COMMAND="git status ."
+
 
 # Added by Granted https://www.granted.dev/
 alias assume="source assume"
+
+fpath=(/Users/timkelty/.granted/zsh_autocomplete/assume/ $fpath)
+
+fpath=(/Users/timkelty/.granted/zsh_autocomplete/granted/ $fpath)

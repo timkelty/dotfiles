@@ -55,6 +55,9 @@ zstyle ':fzf-tab:*' fzf-pad 4
 zstyle ':fzf-tab:complete:exa:*' fzf-preview '[ -d $realpath ] && echo $EXA_FZF_PREVIEW_OPTS | xargs exa $realpath || bat $realpath'
 zstyle ':fzf-tab:complete:bat:*' fzf-preview '[ -f $realpath ] && bat $realpath'
 
+# spacebar, so git branches don't match
+zstyle ':fzf-tab:*' continuous-trigger " "
+
 # fzf-preview 'exa -1 --color=always $realpath'
 # use input as query string when completing zlua
 # zstyle ':fzf-tab:complete:_zlua:*' query-string input
@@ -155,9 +158,6 @@ for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 
-#⌃j to jump
-bindkey -M emacs '\Cj' fzf-cd-widget
-
 # https://github.com/tj/git-extras
 source /opt/homebrew/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
@@ -165,9 +165,9 @@ alias fd="fd ${FD_DEFAULT_OPTS}"
 alias lzd='lazydocker'
 alias lg='lazygit'
 
-# exa/ls
-alias ls="exa ${EXA_DEFAULT_OPTS}"
-alias ll="exa ${EXA_DEFAULT_OPTS} -al"
+# exa/eza/ls
+alias ls="eza --group-directories-first"
+alias ll="eza --group-directories-first -al"
 
 # https://github.com/sharkdp/bat
 alias cat="bat"
@@ -201,6 +201,9 @@ alias dcl='dc logs -f'
 alias tf="terraform"
 alias ghw="gh repo view --web"
 alias ddd="ddev describe"
+alias ddw="ddev launch"
+alias ddx="ddev xdebug on"
+alias ddt="ddev tableplus"
 
 # https://github.com/camdencheek/fre
 fre_purge() {

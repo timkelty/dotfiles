@@ -1,0 +1,6 @@
+[submodule "Repos/craftcms.test/submodules/craftcms"]
+	path = Repos/craftcms.test/submodules/craftcms
+	url = git@github.com:craftcms/cms.git
+[submodule "Dev/craft-6/packages/craftcms/cms"]
+	path = Dev/craft-6/packages/craftcms/cms
+	url = git@github.com:craftcms/cms.git

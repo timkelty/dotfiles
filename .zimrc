@@ -55,3 +55,6 @@ zmodule zsh-users/zsh-autosuggestions
 
 # https://github.com/Aloxaf/fzf-tab
 zmodule Aloxaf/fzf-tab
+
+# https://github.com/junegunn/fzf-git.sh
+# zmodule https://github.com/junegunn/fzf-git.sh

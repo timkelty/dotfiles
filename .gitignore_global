@@ -50,3 +50,16 @@ override.tf
 *_override.tf
 override.tf.json
 *_override.tf.json
+
+# Home
+~/*
+!~/.zshrc
+!~/.zshenv
+!~/.gitignore
+!~/.ignore
+!~/.fdignore
+!~/.gitconfig
+!~/.zimrc
+!~/.fzf.zsh
+!~/.vscode/settings.json
+!~/.config
