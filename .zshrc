@@ -244,7 +244,7 @@ function e() {
 }
 
 function gg() {
-	_open fork "$@"
+	_open fork status "$@"
 }
 
 function phps() {
