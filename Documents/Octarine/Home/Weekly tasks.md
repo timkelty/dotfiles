@@ -10,3 +10,4 @@ pinned: true
   - PR reviews
 - Cloud planning
 - Linear review
+- Email (starred)
